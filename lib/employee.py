@@ -51,7 +51,7 @@ class Employee:
             VALUES (?, ?, ?) 
         """
         CURSOR.execute(sql, (self.name, self.job_title,
-                             self.department_id, self.id))
+                             self.department_id))  # Removed self.id from the binding
         CONN.commit()
 
         self.id = CURSOR.lastrowid
@@ -61,10 +61,10 @@ class Employee:
         """Update the table row corresponding to the current Employee instance."""
         sql = """
             UPDATE employees
-            SET name = ?, job_title = ?
+            SET name = ?, job_title = ?, department_id = ?
             WHERE id = ?
         """
-        CURSOR.execute(sql, (self.name, self.job_title, self.id))
+        CURSOR.execute(sql, (self.name, self.job_title, self.department_id, self.id))
         CONN.commit()
 
     def delete(self):
